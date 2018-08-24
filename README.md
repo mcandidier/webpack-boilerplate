@@ -1,5 +1,5 @@
 # webpack-boilerplate
-Webpack boilder plate
+Webpack startapp project. 
 
 ### Setup
 
