@@ -3,8 +3,9 @@ var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
+    devtool: 'source-mapp',
     entry: {
-        app: ['./assets/js/index.js'],
+        app: ['./assets/js/index.ts'],
         vendor: [
             'jquery',
             'bootstrap'
@@ -17,7 +18,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-        new CleanWebpackPlugin('dist', {} ), // keeping it clean and fresh
+        new CleanWebpackPlugin('dist', {} ), //keeping it clean and fresh
         new MiniCssExtractPlugin({
             filename: "style.css",
             chunkFilename: "[id].css"
@@ -38,7 +39,20 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.tsx?$/, // transpile .ts to js
+                use: 'ts-loader',
+                exclude: /node_modules/
             }
         ]
+    },
+    resolve: {
+        extensions: [ '.tsx', '.ts', '.js']
+    },
+    watch: true,
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 600
     }
 }
